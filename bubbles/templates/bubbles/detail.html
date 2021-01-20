@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="row pt-2 control-group">
+        <div class="col-1  p-0">
+
+        </div>
+        <div class="col-4  p-0">
+            <a href="{{ product.url }}" style="color:#c24c2a"><h1>{{ product.title }}</h1></a>
+        </div>
+
+    </div>
+
+
+    <div class="row ">
+        <div class="col-1 p-0">
+
+        </div>
+        <div class="col-7 p-0">
+            <img class="card-img-top img-fluid" src="{{product.image.url}}">
+        </div>
+    </div>
+    <div class="row  pt-2">
+        <div class="col-1 p-0">
+
+        </div>
+        <div class="col-4 p-0">
+
+            <p class="m-0"><strong>Hunted By {{ product.hunter.username }}</strong>
+                <small class="text-muted">&nbsp;at {{product.pub_date_pretty}} </small>
+
+            </p>
+            <strong><span class="oi oi-box"></span>&nbsp;VOTED:{{product.total_vote}}</strong>
+
+
+        </div>
+
+        <div class="col-3 p-0 d-flex">
+            <div class="mr-auto"></div>
+            <div class="p-1">
+                <a href="javascript:{document.getElementById('vote').submit()}" class="btn btn-danger ">
+                    <span>VOTE</span>
+                    <span class="sr-only">(current)</span>
+                    <span class="oi oi-arrow-circle-top "></span>
+
+
+                </a>
+            </div>
+
+
+            <form id="vote" method="POST" action="{% url 'detail' product.id %}">
+                {% csrf_token %}
+                <input type="hidden"/>
+            </form>
+
+        </div>
+    </div>
+    <div class="row  pt-2">
+        <div class="col-1 p-0">
+
+        </div>
+        <div class="col-7 p-0">
+
+
+            {{product.body}}
+
+        </div>
+
+    </div>
+
+
+</div>
+{% endblock %}

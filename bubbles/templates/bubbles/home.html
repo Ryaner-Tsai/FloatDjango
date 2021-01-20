@@ -1,0 +1,207 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<style>
+  @media only screen {
+  #card-box,.glide__track  {
+    width:360px;
+  }}
+    @media only screen and (max-width: 360px) {
+  #card-box,.glide__track {
+    width:100%;
+  }}
+  #cardTitle a{
+  font-family:"Noto Sans TC", "Microsoft JhengHei UI", "Microsoft JhengHei", "sans-serif";
+
+  }
+  #newsURL{
+  text-decoration: none;
+  color: black;
+  font-weight:500;
+  font-weight: bold;
+  font-size: larger;
+  margin: 12px 0 6px 0;
+  }
+  #newsURL:hover{
+  color: rgb(237,109,30);
+  }
+  #cardTypeName a{
+      font-size: larger;
+      font-weight: bold;
+      color:black;
+  }
+  #cardTypeName a:hover{
+    text-decoration: none;
+      color: rgb(237,109,30);
+      font-size: larger;
+      font-weight: bold;
+  }
+  .glide__arrow{
+  color:black;
+  position:static;
+  box-shadow:none;
+    text-shadow:none;
+  }
+  .gray{
+    color:rgb(96,96,96);
+  }
+  .glide {
+  cursor:default;
+  }
+  .replaceByVideo {
+   display:none;
+  }
+
+</style>
+
+
+
+     <div class="container-fluid h-100">
+    <div class="row justify-content-center  align-items-center h-100">
+        <div class="glide row justify-content-center  align-items-center h-100" style="flex-wrap: nowrap;">
+            <div class="glide__arrows" data-glide-el="controls" >
+                 <button class="glide__arrow glide__arrow--left" data-glide-dir="<" style="position:static">
+                     <div style="width:24px;height:24px"> <img src="{% static 'previous.svg' %}" >
+                     </div>
+                 </button>
+                <!--    <button class="glide__arrow glide__arrow--right" data-glide-dir=">">next</button>  -->
+            </div>
+            <div class="glide__track " data-glide-el="track">
+                <ul class="glide__slides">
+                        {% for combined_bubble in combined_bubbles %}
+                   {% if 'youtube.com' in combined_bubble.url %}
+
+                    <li class="glide__slide">
+                        <div id="card-box" class="d-flex flex-column p-3" style="height:98%;max-height:900px;border-radius:10px">
+                            <div id="cardType" class="row " style="flex:0.25;">
+                                <div id="cardTypeName" class="row no-gutters align-items-end"><a target="_blank" class="row no-gutters align-items-center" href="{{combined_bubble.url}}" > <img src="https://www.youtube.com/s/desktop/80d87ec4/img/favicon_144.png" style="width:16px;height;16px">
+                                    <span style="font-size:smaller">&nbsp;</span> youtube.com</a></div>
+                                <div class="ml-auto" style="width:24px;height:24px"> <img src="{% static 'more_white.svg' %}" ></div>
+                            </div>
+                            <div id="cardImg" class="row " style="flex:1.5;">
+<!--                                <a target="_blank" href="" class="row no-gutters"></a>-->
+                                <a href="#" class="row no-gutters"  onclick="changeToIframe('{{combined_bubble.videosId}}')">
+                                    <img  id="{{combined_bubble.videosId}}" src={{combined_bubble.thumbnails}} data-original={{combined_bubble.thumbnails}} alt={{combined_bubble.title}} title={{combined_bubble.title}} style="width:100%">
+
+                                            <script>
+                                          /*  $('#{{videosId}}').on('click', function() {
+                                                $(this).html().css('background', 'none');
+                                            }); */
+                                            </script>
+                                </a>
+                            </div>
+                            <div id="cardTitle" class="row" style="flex:1;overflow:hidden;flex-wrap:nowrap">
+                                <div  style="width:36px;">
+                                    <img style="width:33px;border-radius:50%;margin:12px 6px 0 0" src={{combined_bubble.channelIconUrl}} data-original={{combined_bubble.channelIconUrl}} alt={{combined_bubble.channelTitle}} title={{combined_bubble.channelTitle}} >
+
+                                </div>
+                                <div class="row flex-column no-gutters flex-fill">
+                                <a id="newsURL" target="_blank" href="https://www.youtube.com/watch?v={{combined_bubble.videosId}}">{{ combined_bubble.summary_title }}</a>
+                                <p class="gray">{{ combined_bubble.channelTitle}}</p>
+                                <p class="gray">觀看次數：{{ combined_bubble.viewCount }}</p>
+                                </div>
+
+                            </div>
+                            </div>
+                    </li>
+                    {% else %}
+                    <li class="glide__slide">
+                        <div id="card-box" class="d-flex flex-column p-3" style="height:98%;max-height:900px;border-radius:10px">
+                            <div id="cardType" class="row " style="flex:0.25;">
+                                <div id="cardTypeName" class="row no-gutters align-items-end"><a class="row no-gutters align-items-center" href="{{combined_bubble.url}}" > <img src="//cdn2.ettoday.net/style/ettoday2017/images/touch-icon.png" style="width:16px;height;16px">
+                                    <span style="font-size:smaller">&nbsp;</span> Ettoday.net</a></div>
+                                <div class="ml-auto" style="width:24px;height:24px"> <img src="{% static 'more_white.svg' %}" ></div>
+                            </div>
+                            <div id="cardImg" class="row " style="flex:1.5;">
+                                <a target="_blank" href="{{combined_bubble.url}}" class="row no-gutters" onclick="openTab(this)">
+                                    <img src={{combined_bubble.img_url}} data-original={{combined_bubble.img_url}} alt={{combined_bubble.title}} title={{combined_bubble.title}} style="width:100%">
+                                </a>
+                            </div>
+                            <div id="cardTitle" class="row flex-column" style="flex:1;overflow:hidden">
+                                <a target="_blank" id="newsURL" href="{{combined_bubble.url}}">{{ combined_bubble.title }}</a>
+                                <p style="overflow:hidden;font-size: small;"> {{ combined_bubble.summary }} </p>
+
+                            </div>
+                            </div>
+                    </li>
+
+                         {% endif %}
+                         {% endfor %}
+                </ul>
+            </div>
+            <div class="glide__arrows" data-glide-el="controls">
+<!--                <button >next</button>-->
+                <!--   <button class="glide__arrow glide__arrow--left" data-glide-dir="<">prev</button>      -->
+                    <button class="glide__arrow glide__arrow--right" data-glide-dir=">" style="position:static">
+                        <div style="width:24px;height:24px"> <img src="{% static 'next.svg' %}" >
+                        </div>
+                    </button>
+            </div>
+        </div>
+    </div>
+
+</div>
+	<script src="https://www.youtube.com/iframe_api"></script>
+<script>
+var eles = document.getElementsByClassName('glide__arrow');
+var i;
+for (i = 0; i < eles.length; i++){
+eles[i].setAttribute("onclick", "closeIframe()");
+}
+
+
+function closeIframe() {
+    iframeEles=document.getElementsByTagName('iframe');
+    imgEles=document.getElementsByClassName('replaceByVideo');
+    var i;var j;
+    for (i = iframeEles.length-1; i>=0 ; i--){
+        iframeEles[i].remove();
+    }
+        for (j = 0; j<imgEles.length ; j++){
+        imgEles[j].setAttribute("class", "");
+    }
+
+}
+function changeToIframe(id){
+
+    var imgEle = document.getElementById(id);
+    var iframeEle = document.createElement("iframe");
+    var urlStr= "https://www.youtube.com/embed/"+id+"?enablejsapi=1&amp;autoplay=1;origin=http%3A%2F%2F127.0.0.1%3A8000&amp;widgetid=1";
+    iframeEle.setAttribute("src", urlStr);
+    iframeEle.setAttribute("id", "ytplayer");
+    iframeEle.setAttribute("frameborder", "0");
+    iframeEle.setAttribute("allowfullscreen", "1");
+    iframeEle.setAttribute("allow", "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture");
+    iframeEle.setAttribute("title", "YouTube video player");
+    iframeEle.setAttribute("width", imgEle.clientWidth+'px');
+    iframeEle.setAttribute("height", imgEle.clientHeight+'px');
+    imgEle.setAttribute("class", "replaceByVideo");
+    imgEle.parentNode.appendChild(iframeEle);
+
+}
+
+function openTab (ele){
+window.open(ele.href,"postWindow","fullscreen=yes,toolbar=yes,location=yes,status=yes,menubar=no,titlebar=yes,scrollbars=yes,resizable=yes");
+return false;
+
+}
+/*
+註解區:
+
+clientHeight
+    console.log(imgEle.clientHeight+'px');
+fullscreen=yes,toolbar=yes,location=yes,status=yes,menubar=no,titlebar=yes,scrollbars=yes,resizable=yes
+'<iframe id="ytplayer" frameborder="0" allowfullscreen="1" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" title="YouTube video player" width="640" height="360" src="https://www.youtube.com/embed/{{ combined_bubble.videosId }}?enablejsapi=1&amp;origin=http%3A%2F%2F127.0.0.1%3A8000&amp;widgetid=1"></iframe>'
+ iframeEle.setAttribute("src", "http://google.com/");
+
+*/
+</script>
+
+
+
+
+
+
+
+
+{% endblock %}

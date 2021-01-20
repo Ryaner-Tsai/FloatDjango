@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Jekyll v3.8.5">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<!--    <script src="https://www.youtube.com/iframe_api"></script>-->
+    <title>Product Hunter</title>
+
+
+    <!-- Bootstrap core CSS -->
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+          integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <link href="{% static 'openicon/font/css/open-iconic-bootstrap.css' %}" rel="stylesheet">
+    <link href="{% static 'Cards.css' %}" rel="stylesheet">
+    <!-- Required Core Stylesheet -->
+    <link rel="stylesheet" href="{% static 'glide.core.min.css' %}">
+    <link rel="stylesheet" href="{% static 'glide.theme.min.css' %}">
+
+
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+
+
+
+
+    </style>
+    <!-- Custom styles for this template -->
+
+</head>
+<body>
+<header>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light" id="navBar">
+        <h1>Web Title
+        </h1>
+    </nav>
+</header>
+<div id="containViewPort">
+{% block content %}
+
+{% endblock %}
+
+<!--<footer class="text-muted">-->
+<!--    <div class="container ">-->
+
+<!--        <p class="text-center">© Ryan {% now "Y" %}</p>-->
+<!--    </div>-->
+<!--</footer>-->
+</div>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
+        integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
+        integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@glidejs/glide"></script>
+
+
+<script>
+const config={
+    type:"carousel",
+    perView:1
+}
+new Glide('.glide',config).mount()
+</script>
+<script>
+
+debug(false);
+heightTo100();
+/* function 區  */
+/* 1.  */
+function debug(doDebug){
+    var divEles = document.getElementsByTagName('div')
+    if (doDebug){
+        var i;
+        for (i = 0; i < divEles.length; i++) {
+            console.log(divEles[i].className+=" debug");
+         }
+     }
+}
+/* 2.*/
+function heightTo100(){
+    var containEle = document.getElementById('containViewPort');
+    var navBarHeight = document.getElementById('navBar').clientHeight;
+    var hString = "calc(100vh - " +navBarHeight.toString()+"px)";
+    containEle.style.height = hString;
+}
+
+/*
+註解區:
+
+divEles[i].class+=" debug"
+document.getElementsByTagName('div').style.border="1px solid red";
+1. getelementbytag div、border:1px solid white;、function (true):
+.class="border:1px solid red";
+  text += cars[i] + "<br>";
+
+*/
+</script>
+</body>
+</html>

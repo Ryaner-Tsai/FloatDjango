@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <form class="form-horizontal" action="{% url 'create' %}" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <fieldset>
+            <div id="legend">
+                <legend class="">New Hunted Product</legend>
+            </div>
+            <!-- Title -->
+            <div class="control-group pt-2">
+
+                <label class="control-label" for="title">Title</label>
+                <div class="controls">
+                    <input type="text" id="title" name="title" placeholder="" class="input-xlarge">
+
+                </div>
+            </div>
+            <!-- url -->
+            <div class="control-group pt-2">
+
+                <label class="control-label" for="url">Address</label>
+                <div class="controls">
+                    <input type="text" id="url" name="url" placeholder="" class="input-xlarge">
+
+                </div>
+            </div>
+            <!--body -->
+            <div class="control-group pt-2">
+
+                <label class="control-label" for="body">Body</label>
+                <div class="controls">
+
+                    <textarea cols="40" rows="20" id="body" class="input-xlarge" name="body"></textarea>
+
+                </div>
+            </div>
+            <!--icon -->
+            <div class="control-group pt-2">
+
+                <label class="control-label" for="icon">Icon</label>
+                <div class="controls">
+                    <input type="file" id="icon" name="icon" placeholder="" class="input-xlarge">
+
+                </div>
+            </div>
+
+            <!--image-->
+            <div class="control-group pt-2">
+
+                <label class="control-label" for="body">Image</label>
+                <div class="controls">
+                    <input type="file" id="image" name="image" placeholder="" class="input-xlarge">
+
+                </div>
+            </div>
+
+            {% if error %}
+            <div style="color:red">{{ error }}</div>
+            {% else %}
+            <br/>
+            {% endif %}
+            <div class="control-group">
+                <!-- Button -->
+                <div class="controls">
+                    <input class="btn btn-success" style="background-color:#c24b2a;border:0px" type="submit"
+                           value="Add Product"/>
+                </div>
+            </div>
+        </fieldset>
+
+    </form>
+</div>
+{% endblock %}
